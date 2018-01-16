@@ -26,3 +26,22 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.categories-container {
+  margin-top: 20px;
+  justify-content: space-between;
+  display: flex;
+}
+
+.categories-button{
+  background-color: #222;
+  border-radius: 25px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 auto;
+  font-size: 12px;
+}

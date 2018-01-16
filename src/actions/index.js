@@ -1,9 +1,10 @@
-export const ADD_CATEGORIES = 'ADD_CATEGORIES'
+export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const ADD_POST = 'ADD_POST'
 
-export function addCategories ({}) {
+export function addCategory ({ category }) {
   return {
-    type: ADD_CATEGORIES,
+    type: ADD_CATEGORY,
+    category,
   }
 }
 

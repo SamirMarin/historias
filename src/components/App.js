@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import '../App.css';
 import * as Api from '../utils/api'
 import { connect } from 'react-redux'
-import { addCategory } from '../actions'
+import Posts from './Posts'
 
 class App extends Component {
   state = {
-    categories: []
+    categories: [],
   }
 
   componentDidMount() {
     Api.getCategories().then((categories) => {
       this.setState({ categories })
     })
+    Api.getPosts().then((posts) => {
+      this.setState({ posts })
+    })
   }
 
+
   getAndSetCategory(category) {
-    this.props.dispatch(addCategory({ category }))
     return category
   }
 
@@ -31,6 +34,10 @@ class App extends Component {
               <button key={category.name} className="categories-button"> { this.getAndSetCategory(category.name) } </button>
             ))}
         </div>
+        <h3> Posts </h3>
+        <Posts
+          category={null}
+        />
       </div>
     );
   }

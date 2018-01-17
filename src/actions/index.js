@@ -1,3 +1,5 @@
+import * as Api from '../utils/api'
+
 export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const ADD_POST = 'ADD_POST'
 
@@ -8,16 +10,25 @@ export function addCategory ({ category }) {
   }
 }
 
-export function addPost ({ id, timestamp, title, body, author, category, voteScore, deleted }) {
+export function addPost ({ post }) {
   return {
     type: ADD_POST,
-    id,
-    timestamp,
-    title,
-    body,
-    author,
-    category,
-    voteScore,
-    deleted,
+    post,
   }
 }
+
+export const fetchCategories = () => dispatch => (
+  Api
+  .getCategories()
+  .then(categories => categories.forEach(function(category) {
+    dispatch(addCategory({ category }))
+  }))
+)
+
+export const fetchPosts = () => dispatch => (
+  Api
+  .getPosts()
+  .then(posts => posts.forEach(function(post) {
+    dispatch(addPost({ post }))
+  }))
+)

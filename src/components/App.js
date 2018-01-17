@@ -2,22 +2,31 @@ import React, { Component } from 'react';
 import '../App.css';
 import * as Api from '../utils/api'
 import { connect } from 'react-redux'
-import { addCategory } from '../actions'
+//import { addCategory, addPost } from '../actions'
 
 class App extends Component {
   state = {
-    categories: []
+    categories: [],
+    posts: [],
   }
 
   componentDidMount() {
     Api.getCategories().then((categories) => {
       this.setState({ categories })
     })
+    Api.getPosts().then((posts) => {
+      this.setState({ posts })
+    })
   }
 
+
   getAndSetCategory(category) {
-    this.props.dispatch(addCategory({ category }))
+    //this.props.dispatch(addCategory({ category }))
     return category
+  }
+  getAndSetPost(post){
+    //this.props.dispatch(addPost({ post }))
+    return post.title
   }
 
   render() {
@@ -29,6 +38,11 @@ class App extends Component {
         <div className="categories-container">
             {this.state.categories.map((category) => (
               <button key={category.name} className="categories-button"> { this.getAndSetCategory(category.name) } </button>
+            ))}
+        </div>
+        <div className="categories-container">
+            {this.state.posts.map((post) => (
+              <button key={post.id} className="categories-button"> { this.getAndSetPost(post) } </button>
             ))}
         </div>
       </div>

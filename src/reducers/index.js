@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import {
-  ADD_CATEGORY
+  ADD_CATEGORY,
+  ADD_POST
 } from '../actions'
 
 function categories (state={}, action) {
@@ -9,7 +10,33 @@ function categories (state={}, action) {
       const { category } = action
       return {
         ...state,
-        [category]: category
+        [category.name]: null
+      }
+    case ADD_POST:
+      const { post } = action
+      return {
+        ...state,
+        [post.category]: post.id
+      }
+    default:
+      return state
+  }
+}
+
+function posts (state={}, action) {
+  switch (action.type) {
+    case ADD_POST:
+      const { post } = action
+      return {
+        ...state,
+        [post.id]: {
+          'timestamp': post.timestamp,
+          'title': post.title,
+          'body': post.body,
+          'author': post.author,
+          'voteScore': post.voteScore,
+          'deleted': post.deleted
+        }
       }
     default:
       return state
@@ -18,4 +45,5 @@ function categories (state={}, action) {
 
 export default combineReducers({
   categories,
+  posts,
 })

@@ -28,14 +28,17 @@ class Posts extends Component {
 }
 
 function mapStateToProps({ posts, categories }, props) {
-  return {
-    posts: props.category ? 
-    categories[props.category].map((postId) => (posts[postId])) 
-    :
-    Object.keys(categories).reduce((posts_array, category) => {
-      posts_array = posts_array.concat(categories[category].map((postId) => (posts[postId])))
-      return posts_array
-    }, [])
+  if (props.category && (props.category in categories)) {
+    return {
+      posts: categories[props.category].map((postId) => (posts[postId]))  
+    }
+  } else {
+    return {
+      posts: Object.keys(categories).reduce((posts_array, category) => {
+        posts_array = posts_array.concat(categories[category].map((postId) => (posts[postId])))
+        return posts_array
+      }, [])
+    }
   }
 }
 

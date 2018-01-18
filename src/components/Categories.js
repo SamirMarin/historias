@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class Categories extends Component {
+  handleCategorySelection(category){
+    this.props.onSelectCategory(category)
+  }
+
   render() {
     return (
       <div className="categories-container">
         <ol className="categories-grid">
           {this.props.categories.map((category) => (
             <li key={category}>
-              <div className="categories-button">
-                {category}
-              </div>
+              <Link to={{
+                pathname: "/category/" + category 
+                  }}
+                className="categories-button">
+                {category} </Link>
             </li>
           ))}
         </ol>
@@ -19,9 +26,9 @@ class Categories extends Component {
   }
 }
 
-function mapStateToProps({ categories }) {
+function mapStateToProps({ categories }, props) {
   return {
-    categories: Object.keys(categories)
+    categories: props.category ? [props.category] : Object.keys(categories)
   }
 }
 export default connect(mapStateToProps)(Categories);

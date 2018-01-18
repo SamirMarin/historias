@@ -12,7 +12,7 @@ class App extends Component {
           <h1 className="App-title">Historias</h1>
         </header>
         <Categories/>
-        <h3> Posts </h3>
+        <h2> Posts </h2>
         <Posts
           category={null}
         />

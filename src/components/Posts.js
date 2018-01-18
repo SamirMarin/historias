@@ -9,15 +9,13 @@ class Posts extends Component {
           {this.props.posts.map((post) => (
             <li key={post.id}>
               <div className="posts-box">
-                <div className="post-list-title"> 
+                <div className="list-post-title"> 
                   <h1>
                     {post.title}
                   </h1>
-                  <h4>
-                    {post.author}
-                </h4>
-                  {post.voteScore}
                 </div>
+                <h4> By: {post.author} </h4>
+                  up votes: {post.voteScore}
               </div>
             </li>
           ))}

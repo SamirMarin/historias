@@ -94,13 +94,15 @@
 
 .list-post-title {
   padding: 10px 0;
-  background: #2e7c31;
+  background: white;
   text-align: center;
 }
 .list-post-title h1 {
   font-weight: 100;
   margin: 0;
-  color: white;
+  color: #222;
+  width: 300px;
+  height: 80px;
 }
 
 

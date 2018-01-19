@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import Posts from './Posts'
 import Categories from './Categories'
+import Post from './Post'
 import { Route } from 'react-router-dom'
 
 class App extends Component {
@@ -12,22 +13,22 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Historias</h1>
         </header>
-        <Route path="/category/:category" render={(props) => (
+        <Route exact path="/" component={Categories}/>
+        <Route path="/categories/:category" render={(props) => (
           <Categories
             category={props.match.params.category}
           />
         )}/>
-        <Route exact path="/" render={() => (
-          <Categories/>
-        )}/>
-        <h2> Posts </h2>
-        <Route path="/category/:category" render={(props) => (
+        <Route exact path="/" component={Posts}/>
+        <Route path="/categories/:category" render={(props) => (
           <Posts
             category={props.match.params.category}
           />
         )}/>
-        <Route exact path="/" render={() => (
-          <Posts/>
+        <Route path="/posts/:postId" render={(props) => (
+          <Post
+            postId={props.match.params.postId}
+          />
         )}/>
       </div>
     );

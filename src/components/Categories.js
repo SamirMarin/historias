@@ -14,7 +14,7 @@ class Categories extends Component {
           {this.props.categories.map((category) => (
             <li key={category}>
               <Link to={{
-                pathname: "/category/" + category 
+                pathname: "/categories/" + category 
                   }}
                 className="categories-button">
                 {category} </Link>

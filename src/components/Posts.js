@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class Posts extends Component {
   render() {
     return (
       <div className="posts-container">
+        <h2> Posts </h2>
         <ol className="posts-grid">
           {this.props.posts.map((post) => (
             <li key={post.id}>
               <div className="posts-box">
                 <div className="list-post-title"> 
                   <h1>
-                    {post.title}
+                    <Link
+                      to={{ pathname: "/posts/" + post.id }}
+                      className="list-post-title-link"
+                    >{post.title}</Link>
                   </h1>
                 </div>
                 <h4> By: {post.author} </h4>

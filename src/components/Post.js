@@ -30,6 +30,8 @@ function mapStateToProps({ posts }, props) {
     return {
       post: posts[props.postId]
     }
+  } else {
+    return {}
   }
 }
 

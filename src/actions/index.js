@@ -2,6 +2,7 @@ import * as Api from '../utils/api'
 
 export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const ADD_POST = 'ADD_POST'
+export const ADD_COMMENT = 'ADD_COMMENT'
 
 export function addCategory ({ category }) {
   return {
@@ -17,6 +18,21 @@ export function addPost ({ post }) {
   }
 }
 
+export function addComment({ comment }) {
+  return {
+    type: ADD_COMMENT,
+    comment,
+  }
+}
+
+export const fetchComments = (id) => dispatch => (
+  Api
+  .getComments(id)
+  .then(comments => comments.forEach(function(comment) {
+    dispatch(addComment({ comment }))
+  }))
+)
+
 export const fetchCategories = () => dispatch => (
   Api
   .getCategories()
@@ -30,5 +46,6 @@ export const fetchPosts = () => dispatch => (
   .getPosts()
   .then(posts => posts.forEach(function(post) {
     dispatch(addPost({ post }))
+    dispatch(fetchComments(post.id))
   }))
 )

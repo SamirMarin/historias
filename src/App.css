@@ -141,5 +141,49 @@
   font-size: xx-small;
   font-weight: lighter;
 }
+ /*comments*/
+
+.comments-container{
+  text-align: center;
+  padding: 50px;
+}
+
+.comment-grid {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  display: inline;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.comment-grid li {
+  padding: 20px 55px;
+  text-align: center;
+}
+
+.comment-container{
+  background-color: #222222d4;
+  color: white;
+  padding: 10px 100px;
+  border-radius: 20px;
+}
+
+.comment-author {
+  font-size: x-small;
+  font-weight: lighter;
+}
+
+.comment-date {
+  font-size: x-small;
+  font-weight: lighter;
+}
+
+.comment-body {
+  font-size: .8em;
+  font-family: message-box;
+  padding: 10px;
+}
 
 

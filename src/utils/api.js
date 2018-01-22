@@ -1,4 +1,4 @@
-const api = "http://localhost:3001"
+const api = "https://historias-api.herokuapp.com"
 
 // Generate a unique token to work with your own data on the backend server.
 let token = localStorage.token

@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Comments from './Comments'
+import { getDate } from '../utils/helpers'
 
 class Post extends Component {
-  getDate(timestame){
-    let date = new Date(timestame)
-    return date.toString()
-  }
-
   render() {
     return (
       <div className="post-container">
@@ -17,7 +14,10 @@ class Post extends Component {
               <i> {this.props.post.author} </i> 
             </div>
             <div className="post-body"> {this.props.post.body} </div>
-            <div className="post-date"> written on: {this.getDate(this.props.post.timestamp)} </div>
+            <div className="post-date"> written on: {getDate(this.props.post.timestamp)} </div>
+            <Comments
+              comments={this.props.post.comments}
+            />
           </div>
         )}
       </div>

@@ -33,14 +33,6 @@ export const fetchComments = (id) => dispatch => (
   }))
 )
 
-export const fetchCategories = () => dispatch => (
-  Api
-  .getCategories()
-  .then(categories => categories.forEach(function(category) {
-    dispatch(addCategory({ category }))
-  }))
-)
-
 export const fetchPosts = () => dispatch => (
   Api
   .getPosts()
@@ -48,4 +40,15 @@ export const fetchPosts = () => dispatch => (
     dispatch(addPost({ post }))
     dispatch(fetchComments(post.id))
   }))
+)
+
+export const fetchCategories = () => dispatch => (
+  Api
+  .getCategories()
+  .then(
+    (categories) => { categories.forEach(function(category) {
+      dispatch(addCategory({ category }))}
+    )}
+  ).then(
+    () => dispatch(fetchPosts()))
 )

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getDate } from '../utils/helpers'
 
-
 class Comments extends Component {
   render() {
     return (

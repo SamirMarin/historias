@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Vote from './Vote'
 
 class Posts extends Component {
   render() {
@@ -20,7 +21,7 @@ class Posts extends Component {
                   </h1>
                 </div>
                 <h4> By: {post.author} </h4>
-                  up votes: {post.voteScore}
+                <Vote/>
               </div>
             </li>
           ))}

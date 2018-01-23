@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './reducers'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import { fetchCategories, fetchPosts } from './actions'
+import { fetchCategories } from './actions'
 import { BrowserRouter } from 'react-router-dom'
 
 const logger = store => next => action => {
@@ -29,7 +29,7 @@ const store = createStore(
 )
 
 store.dispatch(fetchCategories())
-store.dispatch(fetchPosts())
+//store.dispatch(fetchPosts())
 
 ReactDOM.render(
   <Provider store={store}>

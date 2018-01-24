@@ -21,7 +21,13 @@ class Posts extends Component {
                   </h1>
                 </div>
                 <h4> By: {post.author} </h4>
-                <Vote/>
+                <Vote
+                  voteScoreObject={ {
+                    id: post.id, 
+                    voteScore: post.voteScore,
+                    url: "posts",
+                  } }
+                />
               </div>
             </li>
           ))}

@@ -3,6 +3,7 @@ import * as Api from '../utils/api'
 export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const ADD_POST = 'ADD_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const CHANGE_VOTE_SCORE = 'CHANGE_VOTE_SCORE'
 
 export function addCategory ({ category }) {
   return {
@@ -22,6 +23,14 @@ export function addComment({ comment }) {
   return {
     type: ADD_COMMENT,
     comment,
+  }
+}
+
+export function changeVoteScore({ voteScore, id }){
+  return {
+    type: CHANGE_VOTE_SCORE,
+    id,
+    voteScore,
   }
 }
 

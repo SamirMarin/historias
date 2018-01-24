@@ -17,7 +17,11 @@ class Post extends Component {
             <div className="post-body"> {this.props.post.body} </div>
             <div className="post-date"> written on: {getDate(this.props.post.timestamp)} </div>
             <Vote
-              post={this.props.post}
+              voteScoreObject={ {
+                id: this.props.post.id, 
+                voteScore: this.props.post.voteScore,
+                url: "posts",
+              } }
             />
             <Comments
               comments={this.props.post.comments}

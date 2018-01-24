@@ -166,7 +166,7 @@
 .comment-container{
   background-color: #222222d4;
   color: white;
-  padding: 10px 100px;
+  padding: 10px 10px;
   border-radius: 20px;
 }
 
@@ -217,5 +217,6 @@
 }
 
 .vote-triangle {
-  color: black;
+  color: #222222d4;
+  cursor: pointer;
 }

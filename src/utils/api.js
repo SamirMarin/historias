@@ -1,4 +1,5 @@
 const api = "https://historias-api.herokuapp.com"
+//const api = "http://localhost:3001"
 
 // Generate a unique token to work with your own data on the backend server.
 let token = localStorage.token
@@ -24,3 +25,13 @@ export const getComments = (id) =>
   fetch(`${api}/posts/${id}/comments`, { headers })
     .then(res => res.json())
     .then(data => data)
+
+export const updateVoteScore = (option, id, url) =>
+  fetch(`${api}/${url}/${id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ option })
+  }).then(res => res.json())

@@ -3,7 +3,8 @@ import {
   ADD_CATEGORY,
   ADD_POST,
   ADD_COMMENT,
-  CHANGE_VOTE_SCORE,
+  POST_VOTE,
+  COMMENT_VOTE,
 } from '../actions'
 
 function categories (state={}, action) {
@@ -45,7 +46,7 @@ function posts (state={}, action) {
           'comments': [...state[comment.parentId].comments, comment.id]
         }
       }
-    case CHANGE_VOTE_SCORE:
+    case POST_VOTE:
       const { id, voteScore } = action
       return {
         ...state,
@@ -66,6 +67,15 @@ function comments (state={}, action) {
       return {
         ...state,
         [comment.id]: comment
+      }
+    case COMMENT_VOTE:
+      const { id, voteScore } = action
+      return {
+        ...state,
+        [id]: {
+          ...state[id],
+          'voteScore': voteScore
+        }
       }
     default:
       return state

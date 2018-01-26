@@ -34,4 +34,10 @@ export const updateVoteScore = (option, id, url) =>
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ option })
-  }).then(res => res.json())
+  }).then(res => {
+    if(res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(new Error(res.statusText))
+    }
+  }).then(data => data.voteScore)

@@ -2,46 +2,41 @@ import React, { Component } from 'react'
 import Arrowup from 'react-icons/lib/go/triangle-up'
 import Arrowdown from 'react-icons/lib/go/triangle-down'
 import { connect } from 'react-redux'
-import { changeVoteScore } from '../actions'
+import { postVote, commentVote } from '../actions'
 import * as Api from '../utils/api'
 
 class Vote extends Component {
-  upVote ( voteScoreObject, vote ) {
-    Api.updateVoteScore("upVote", voteScoreObject.id, voteScoreObject.url)
-      .then(() => {
-      vote(
-        { id: voteScoreObject.id, voteScore: voteScoreObject.voteScore + 1 }
-      )})
+  vote ( typeVote, voteScoreObject, voteFn ) {
+    Api.updateVoteScore(typeVote, voteScoreObject.id, voteScoreObject.url)
+      .then((voteScore) => {
+        voteFn({ id: voteScoreObject.id, voteScore: voteScore })
+      })
+      .catch((error) => console.log(error))
   }
 
-  downVote ( voteScoreObject, vote ) {
-    Api.updateVoteScore("downVote", voteScoreObject.id, voteScoreObject.url)
-      .then(() => {
-      vote(
-        { id: voteScoreObject.id, 
-          voteScore: voteScoreObject.voteScore - 1 }
-      )})
+  typeOfVote(url){
+    return url === "posts" ? this.props.postVote : this.props.commentVote
   }
 
   render() {
-    const { voteScoreObject, vote } = this.props
+    const { voteScoreObject } = this.props
     return (
       <div className="vote-circle"> 
         { voteScoreObject && (
           <div>
-            <div onClick={() => this.upVote(voteScoreObject, vote) } >
+            <div onClick={() => this.vote("upVote", voteScoreObject, this.typeOfVote(voteScoreObject.url)) } >
               <Arrowup 
                 className="vote-triangle" 
-                size={70}
+                size={40}
               />
             </div>
             <div className="vote-score"> 
               {this.props.voteScoreObject.voteScore}
             </div>
-            <div onClick={() => this.downVote(voteScoreObject, vote) } >
+            <div onClick={() => this.vote( "downVote", voteScoreObject, this.typeOfVote(voteScoreObject.url)) } >
               <Arrowdown 
                 className="vote-triangle" 
-                size={70}
+                size={40}
               />
             </div>
           </div>
@@ -53,7 +48,8 @@ class Vote extends Component {
 
 function mapDispatchToProps( dispatch ) {
   return {
-    vote: (data) => dispatch(changeVoteScore(data)),
+    postVote: (data) => dispatch(postVote(data)),
+    commentVote: (data) => dispatch(commentVote(data)),
   }
 }
 

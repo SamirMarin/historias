@@ -146,6 +146,7 @@
 .comments-container{
   text-align: center;
   padding: 50px;
+  min-width: 50%
 }
 
 .comment-grid {
@@ -168,6 +169,13 @@
   color: white;
   padding: 10px 10px;
   border-radius: 20px;
+  min-width: 200px;
+  max-height: 150px;
+}
+
+.comment-vote-left {
+  max-width: 50%;
+  margin: 0 auto;
 }
 
 .comment-author {
@@ -193,6 +201,9 @@
   max-width: 50%;
   background-color: white;
   margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
 }
 
 .vote-score {
@@ -220,3 +231,4 @@
   color: #222222d4;
   cursor: pointer;
 }
+

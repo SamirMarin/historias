@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Comments from './Comments'
 import { getDate } from '../utils/helpers'
 import Vote from './Vote'
+import CommentForm from './CommentForm'
 
 class Post extends Component {
   render() {
@@ -22,6 +23,9 @@ class Post extends Component {
                 voteScore: this.props.post.voteScore,
                 url: "posts",
               } }
+            />
+            <CommentForm
+              postId = {this.props.post.id}
             />
             <Comments
               comments={this.props.post.comments}

@@ -4,6 +4,7 @@ import Posts from './Posts'
 import Categories from './Categories'
 import Post from './Post'
 import { Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class App extends Component {
 
@@ -11,7 +12,12 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Historias</h1>
+          <h1 className="App-title">
+            <Link
+              to="/"
+              className="App-title-link"
+            >Historias</Link>
+          </h1>
         </header>
         <Route exact path="/" component={Categories}/>
         <Route path="/categories/:category" render={(props) => (

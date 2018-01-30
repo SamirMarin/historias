@@ -57,3 +57,19 @@ export const addComment = (comment) =>
       return Promise.reject(new Error(res.statusText))
     }
   })
+
+export const addPost = (post) =>
+  fetch(`${api}/posts`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(post)
+  }).then(res => {
+    if(res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(new Error(res.statusText))
+    }
+  })

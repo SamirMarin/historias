@@ -3,6 +3,7 @@ import '../App.css';
 import Posts from './Posts'
 import Categories from './Categories'
 import Post from './Post'
+import PostForm from './PostForm'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
@@ -36,6 +37,7 @@ class App extends Component {
             postId={props.match.params.postId}
           />
         )}/>
+      <Route exact path="/posts/new" component={PostForm}/>
       </div>
     );
   }

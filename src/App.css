@@ -50,6 +50,19 @@
   margin: 0 auto;
   font-size: 12px;
 }
+.categories-button-new-post {
+  background-color: #222;
+  border-radius: 25px;
+  border: none;
+  color: white;
+  padding: 5px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 auto;
+  font-size: 12px;
+  cursor: pointer;
+}
 
 .categories-grid {
   list-style-type: none;
@@ -94,6 +107,11 @@
   text-align: center;
   text-decoration: none;
   margin: 0 auto;
+}
+
+.posts-add {
+  display: left;
+  color: #222;
 }
 
 /*post list*/
@@ -264,4 +282,17 @@
 
 .comment-form-title {
   font-weight: lighter;
+}
+
+/* post from */
+.post-text-box-title {
+  display: inline;
+  width: 75%;
+  height: 20px;
+}
+
+.post-text-box-area {
+  display: inline;
+  width: 75%;
+  height: 220px;
 }

@@ -3,6 +3,7 @@ import '../App.css';
 import Posts from './Posts'
 import Categories from './Categories'
 import Post from './Post'
+import PostForm from './PostForm'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
@@ -34,6 +35,13 @@ class App extends Component {
         <Route path="/posts/:postId" render={(props) => (
           <Post
             postId={props.match.params.postId}
+          />
+        )}/>
+        <Route path="/posts/new" render={({ history }) => (
+          <PostForm
+            onCreatePost={() => {
+              history.push('/')
+            }}
           />
         )}/>
       </div>

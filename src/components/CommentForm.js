@@ -18,7 +18,9 @@ class CommentForm extends Component {
     this.setState({body: value})
   }
 
-  handleSubmit(){
+  handleSubmit(e) {
+    e.preventDefault()
+
     let comment = {
       id: uuidv1(),
       timestamp: Date.now(),
@@ -28,7 +30,11 @@ class CommentForm extends Component {
     }
 
     Api.addComment(comment)
-      .then(comment => this.props.addComment(comment))
+      .then(comment =>  {
+        this.props.addComment({ comment })
+        this.handleChangeAuthor("")
+        this.handleChangeBody("")
+      })
       .catch(err => console.log(err))
   }
 
@@ -38,7 +44,7 @@ class CommentForm extends Component {
         <div className="comment-form-title">
           Write a response... 
         </div>
-        <form onSubmit ={() => this.handleSubmit()} >
+        <form onSubmit ={(e) => this.handleSubmit(e)} >
           <div className="comment-form-area">
             <div className="">
               <input 

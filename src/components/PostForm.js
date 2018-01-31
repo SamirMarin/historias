@@ -30,7 +30,9 @@ class PostForm extends Component {
     this.setState({ category })
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault()
+
     let post = {
       id: uuidv1(),
       timestamp: Date.now(),
@@ -41,8 +43,10 @@ class PostForm extends Component {
     }
 
     Api.addPost(post)
-      .then(post => this.props.addPost(post))
+      .then(post => this.props.addPost({ post }))
       .catch(err => console.log(err))
+
+    this.props.onCreatePost()
   }
 
   render() {
@@ -51,7 +55,7 @@ class PostForm extends Component {
         <div className="comment-form-title">
           Let's hear it! Post and publish it!
         </div>
-        <form onSubmit ={() => this.handleSubmit()} >
+        <form onSubmit ={(e) => this.handleSubmit(e)} >
           <div className="comment-form-area">
             <Categories
               newPost={true}

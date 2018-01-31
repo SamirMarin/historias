@@ -109,6 +109,11 @@
   margin: 0 auto;
 }
 
+.posts-add {
+  display: left;
+  color: #222;
+}
+
 /*post list*/
 
 .list-post-title {

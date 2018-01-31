@@ -37,7 +37,13 @@ class App extends Component {
             postId={props.match.params.postId}
           />
         )}/>
-      <Route exact path="/posts/new" component={PostForm}/>
+        <Route path="/posts/new" render={({ history }) => (
+          <PostForm
+            onCreatePost={() => {
+              history.push('/')
+            }}
+          />
+        )}/>
       </div>
     );
   }

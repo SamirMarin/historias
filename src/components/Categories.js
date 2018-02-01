@@ -7,14 +7,6 @@ class Categories extends Component {
     categoryColor: {}
   }
 
-  componentWillReceiveProps() {
-    if (this.props.categories) {
-      this.props.categories.forEach((category) => {
-        this.setStateCategoryColor(category, '#949090')
-      })
-    }
-  }
-
   setStateCategoryColor (category, color) {
     this.setState(state => ({
       categoryColor: {
@@ -27,9 +19,9 @@ class Categories extends Component {
   handleCategorySelection(category){
     this.props.onSelectCategory(category)
     this.props.categories.filter((cate) => (cate !== category)).forEach((cate) => {
-      this.setStateCategoryColor(cate, '#949090')
+      this.setStateCategoryColor(cate, '#222')
     })
-    this.setStateCategoryColor(category, '#222')
+    this.setStateCategoryColor(category, '#949090')
   }
 
   render() {

@@ -7,6 +7,18 @@ class Categories extends Component {
     categoryColor: {}
   }
 
+  constructor(props){
+    super(props)
+    if(props.categorySelected !== "") {
+      this.state = {
+        categoryColor: {
+          ...this.state.categoryColor,
+          [props.categorySelected]: '#949090'
+        }
+      }
+    }
+  }
+
   setStateCategoryColor (category, color) {
     this.setState(state => ({
       categoryColor: {

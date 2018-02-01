@@ -14,6 +14,18 @@ class PostForm extends Component {
     category: "",
   }
 
+  constructor(props) {
+    super(props)
+    if (this.props.post) {
+      this.state = {
+        title: this.props.post.title,
+        body: this.props.post.body,
+        author: this.props.post.author,
+        category: this.props.post.category,
+      }
+    }
+  }
+
   handleChangeTitle(value) {
     this.setState({ title: value })
   }
@@ -74,6 +86,7 @@ class PostForm extends Component {
             <Categories
               newPost={true}
               onSelectCategory={this.selectCategory}
+              categorySelected={this.state.category}
             />
             <div className="form-padding">
               <textarea 
@@ -114,10 +127,20 @@ class PostForm extends Component {
   }
 }
 
+function mapStateToProps({ posts }, props) {
+  if (props.postId && (props.postId in posts)) {
+    return {
+      post: posts[props.postId]
+    }
+  } else {
+    return {}
+  }
+}
+
 function mapDispatchToProps( dispatch ) {
   return {
     addPost: (data) => dispatch(addPost(data)),
   }
 }
 
-export default connect(() => {return {}}, mapDispatchToProps)(PostForm );
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm );

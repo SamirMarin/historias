@@ -37,14 +37,22 @@ class App extends Component {
             postId={props.match.params.postId}
           />
         )}/>
-        <Route path="/posts/new" render={({ history }) => (
-          <PostForm
-            onCreatePost={() => {
-              history.push('/')
-            }}
-          />
-        )}/>
-      </div>
+      <Route path="/posts/new" render={({ history }) => (
+        <PostForm
+          onCreatePost={() => {
+            history.push('/')
+          }}
+        />
+      )}/>
+      <Route path="/posts/edit/:postId" render={(props) => (
+        <PostForm
+          postId={props.match.params.postId}
+          onCreatePost={() => {
+            props.history.push('/')
+          }}
+        />
+      )}/>
+  </div>
     );
   }
 }

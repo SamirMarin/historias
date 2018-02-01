@@ -33,6 +33,20 @@ class PostForm extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
+    if (this.state.category === "") {
+      alert("Please choose a category")
+      return
+    } else if (this.state.title === "") {
+      alert("Please give the post a title")
+      return
+    } else if (this.state.body === "") {
+      alert("Please the post a body")
+      return
+    } else if (this.state.author === "") {
+      alert("Please tell us who the author is")
+      return
+    }
+
     let post = {
       id: uuidv1(),
       timestamp: Date.now(),

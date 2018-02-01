@@ -21,6 +21,14 @@ class CommentForm extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
+    if (this.state.author === "" ) {
+      alert("please enter who you are")
+      return
+    } else if (this.state.body === "") {
+      alert("please enter a comment")
+      return
+    }
+
     let comment = {
       id: uuidv1(),
       timestamp: Date.now(),

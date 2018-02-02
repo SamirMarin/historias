@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 
 class Categories extends Component {
   state = {
-    categoryColor: {}
+    categoryColor: {},
+    canChangeCategory: true,
   }
 
   constructor(props){
@@ -14,7 +15,22 @@ class Categories extends Component {
         categoryColor: {
           ...this.state.categoryColor,
           [props.categorySelected]: '#949090'
-        }
+        },
+        canChangeCategory: false,
+      }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props !== nextProps) {
+      if(nextProps.categorySelected !== "") {
+        this.setState(state => ({
+          categoryColor: {
+            ...state.categoryColor,
+            [nextProps.categorySelected]: '#949090'
+          },
+          canChangeCategory: false,
+        }))
       }
     }
   }
@@ -29,11 +45,13 @@ class Categories extends Component {
   }
 
   handleCategorySelection(category){
-    this.props.onSelectCategory(category)
-    this.props.categories.filter((cate) => (cate !== category)).forEach((cate) => {
-      this.setStateCategoryColor(cate, '#222')
-    })
-    this.setStateCategoryColor(category, '#949090')
+    if(this.state.canChangeCategory) {
+      this.props.onSelectCategory(category)
+      this.props.categories.filter((cate) => (cate !== category)).forEach((cate) => {
+        this.setStateCategoryColor(cate, '#222')
+      })
+      this.setStateCategoryColor(category, '#949090')
+    }
   }
 
   render() {

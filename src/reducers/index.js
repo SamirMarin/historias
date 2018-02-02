@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import {
   ADD_CATEGORY,
   ADD_POST,
+  EDIT_POST,
   ADD_COMMENT,
   POST_VOTE,
   COMMENT_VOTE,
@@ -53,6 +54,16 @@ function posts (state={}, action) {
         [id]: {
           ...state[id],
           'voteScore': voteScore
+        }
+      }
+    case EDIT_POST:
+      const { postId, title, body } = action
+      return {
+        ...state,
+        [postId]: {
+          ...state[postId],
+          'title': title,
+          'body': body,
         }
       }
     default:

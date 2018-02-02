@@ -32,7 +32,7 @@ class Posts extends Component {
                 />
                 <div className="edit-post-container">
                   <Link
-                    to={{ pathname: "posts/edit/" + post.id }}
+                    to={{ pathname: "/posts/edit/" + post.id }}
                     className="edit-post-icon"
                   >
                   <EditPost 

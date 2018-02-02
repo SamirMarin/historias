@@ -73,3 +73,20 @@ export const addPost = (post) =>
       return Promise.reject(new Error(res.statusText))
     }
   })
+
+export const editPost = (post, id) => 
+  fetch(`${api}/posts/${id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(post)
+  }).then(res => {
+    if(res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(new Error(res.statusText))
+    }
+  })
+

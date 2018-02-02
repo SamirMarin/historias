@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Categories from './Categories'
 import uuidv1 from 'uuid/v1'
 import * as Api from '../utils/api'
-import { addPost } from '../actions'
+import { addPost, editPost } from '../actions'
 
 
 class PostForm extends Component {
@@ -12,6 +12,31 @@ class PostForm extends Component {
     body: "",
     author: "",
     category: "",
+  }
+
+  constructor(props) {
+    super(props)
+    if (this.props.post) {
+      this.state = {
+        title: this.props.post.title,
+        body: this.props.post.body,
+        author: this.props.post.author,
+        category: this.props.post.category,
+      }
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (this.props !== nextProps){
+      if(nextProps.post){
+        this.setState({
+          title: nextProps.post.title,
+          body: nextProps.post.body,
+          author: nextProps.post.author,
+          category: nextProps.post.category,
+        })
+      }
+    }
   }
 
   handleChangeTitle(value) {
@@ -23,11 +48,15 @@ class PostForm extends Component {
   }
 
   handleChangeAuthor(value) {
-    this.setState({ author: value })
+    if(!this.props.post){
+      this.setState({ author: value })
+    }
   }
 
   selectCategory = (category) => {
-    this.setState({ category })
+    if(!this.props.post) {
+      this.setState({ category })
+    }
   }
 
   handleSubmit(e) {
@@ -47,18 +76,30 @@ class PostForm extends Component {
       return
     }
 
-    let post = {
-      id: uuidv1(),
-      timestamp: Date.now(),
-      title: this.state.title,
-      body: this.state.body,
-      author: this.state.author,
-      category: this.state.category,
-    }
+    if (this.props.post) {
+      let post = {
+        title: this.state.title,
+        body: this.state.body,
+      }
 
-    Api.addPost(post)
-      .then(post => this.props.addPost({ post }))
-      .catch(err => console.log(err))
+      Api.editPost(post, this.props.post.id)
+        .then(post => this.props.editPost({ postId: post.id, title: post.title, body: post.body }))
+        .catch(err => console.log(err))
+
+    } else {
+      let post = {
+        id: uuidv1(),
+        timestamp: Date.now(),
+        title: this.state.title,
+        body: this.state.body,
+        author: this.state.author,
+        category: this.state.category,
+      }
+
+      Api.addPost(post)
+        .then(post => this.props.addPost({ post }))
+        .catch(err => console.log(err))
+    }
 
     this.props.onCreatePost()
   }
@@ -74,6 +115,7 @@ class PostForm extends Component {
             <Categories
               newPost={true}
               onSelectCategory={this.selectCategory}
+              categorySelected={this.state.category}
             />
             <div className="form-padding">
               <textarea 
@@ -114,10 +156,21 @@ class PostForm extends Component {
   }
 }
 
-function mapDispatchToProps( dispatch ) {
-  return {
-    addPost: (data) => dispatch(addPost(data)),
+function mapStateToProps({ posts }, props) {
+  if (props.postId && (props.postId in posts)) {
+    return {
+      post: posts[props.postId]
+    }
+  } else {
+    return {}
   }
 }
 
-export default connect(() => {return {}}, mapDispatchToProps)(PostForm );
+function mapDispatchToProps( dispatch ) {
+  return {
+    addPost: (data) => dispatch(addPost(data)),
+    editPost: (data) => dispatch(editPost(data)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm );

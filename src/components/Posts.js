@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Vote from './Vote'
 import AddPost from 'react-icons/lib/md/add'
+import EditPost from 'react-icons/lib/ti/edit'
 
 class Posts extends Component {
   render() {
@@ -29,6 +30,17 @@ class Posts extends Component {
                     url: "posts",
                   } }
                 />
+                <div className="edit-post-container">
+                  <Link
+                    to={{ pathname: "/posts/edit/" + post.id }}
+                    className="edit-post-icon"
+                  >
+                  <EditPost 
+                    className="edit-post"
+                    size={30}
+                  />
+                </Link>
+                </div>
               </div>
             </li>
           ))}

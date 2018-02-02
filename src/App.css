@@ -296,3 +296,18 @@
   width: 75%;
   height: 220px;
 }
+
+/* edit post */
+
+.edit-post {
+  float: right;
+}
+
+.edit-post-container {
+  width: 100%;
+  height: 30px;
+}
+
+.edit-post-icon {
+  color: white;
+}

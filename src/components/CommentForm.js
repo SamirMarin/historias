@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as Api from '../utils/api'
 import uuidv1 from 'uuid/v1'
-import { addComment } from '../actions'
+import { addComment, editComment } from '../actions'
 
 class CommentForm extends Component {
   state = {
@@ -10,8 +10,20 @@ class CommentForm extends Component {
     body: "",
   }
 
+  constructor(props) {
+    super(props)
+    if (this.props.comment) {
+      this.state = {
+        author: this.props.comment.author,
+        body: this.props.comment.body,
+      }
+    }
+  }
+
   handleChangeAuthor(value) {
-    this.setState({author: value})
+    if (!this.props.comment) {
+      this.setState({author: value})
+    }
   }
 
   handleChangeBody(value) {
@@ -29,21 +41,36 @@ class CommentForm extends Component {
       return
     }
 
-    let comment = {
-      id: uuidv1(),
-      timestamp: Date.now(),
-      body: this.state.body,
-      author: this.state.author,
-      parentId: this.props.postId,
-    }
+    if (this.props.comment) {
+      let comment = {
+        timestamp: Date.now(),
+        body: this.state.body
+      }
 
-    Api.addComment(comment)
-      .then(comment =>  {
-        this.props.addComment({ comment })
-        this.handleChangeAuthor("")
-        this.handleChangeBody("")
-      })
-      .catch(err => console.log(err))
+      Api.editComment(comment, this.props.comment.id)
+        .then(comment => this.props.editComment({ commentId: comment.id, body: comment.body }) )
+        .catch(err => console.log(err))
+
+      this.props.onSubmitEdit()
+
+    } else {
+
+      let comment = {
+        id: uuidv1(),
+        timestamp: Date.now(),
+        body: this.state.body,
+        author: this.state.author,
+        parentId: this.props.postId,
+      }
+
+      Api.addComment(comment)
+        .then(comment =>  {
+          this.props.addComment({ comment })
+          this.handleChangeAuthor("")
+          this.handleChangeBody("")
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   render() {
@@ -87,6 +114,7 @@ class CommentForm extends Component {
 function mapDispatchToProps( dispatch ) {
   return {
     addComment: (data) => dispatch(addComment(data)),
+    editComment: (data) => dispatch(editComment(data)),
   }
 }
 

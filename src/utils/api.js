@@ -90,3 +90,19 @@ export const editPost = (post, id) =>
     }
   })
 
+export const editComment = (comment, id) => 
+  fetch(`${api}/comments/${id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(comment)
+  }).then(res => {
+    if(res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(new Error(res.satusText))
+    }
+  })
+

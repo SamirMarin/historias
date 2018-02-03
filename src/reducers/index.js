@@ -4,6 +4,7 @@ import {
   ADD_POST,
   EDIT_POST,
   ADD_COMMENT,
+  EDIT_COMMENT,
   POST_VOTE,
   COMMENT_VOTE,
 } from '../actions'
@@ -86,6 +87,15 @@ function comments (state={}, action) {
         [id]: {
           ...state[id],
           'voteScore': voteScore
+        }
+      }
+    case EDIT_COMMENT:
+      const { commentId, body } = action
+      return {
+        ...state,
+        [commentId]: {
+          ...state[commentId],
+          'body': body,
         }
       }
     default:

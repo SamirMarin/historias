@@ -193,7 +193,7 @@
   padding: 10px 10px;
   border-radius: 20px;
   min-width: 200px;
-  max-height: 150px;
+  max-height: 180px;
 }
 
 .comment-vote-left {
@@ -311,3 +311,35 @@
 .edit-post-icon {
   color: white;
 }
+/*edit comment*/
+.edit-comment {
+  float: right;
+  cursor: pointer;
+}
+
+.edit-comment-container {
+  width: 100%;
+  height: 30px;
+}
+
+.modal {
+  position: absolute;
+  top: 40px;
+  left: 200px;
+  right: 200px;
+  bottom: 40px;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);
+  min-width: 400px;
+  max-height: 300px;
+}
+
+.edit-comment-modal {
+}
+

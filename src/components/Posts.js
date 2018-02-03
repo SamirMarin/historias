@@ -35,11 +35,11 @@ class Posts extends Component {
                     to={{ pathname: "/posts/edit/" + post.id }}
                     className="edit-post-icon"
                   >
-                  <EditPost 
-                    className="edit-post"
-                    size={30}
-                  />
-                </Link>
+                    <EditPost 
+                      className="edit-post"
+                      size={30}
+                    />
+                  </Link>
                 </div>
               </div>
             </li>

@@ -4,6 +4,7 @@ export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const POST_VOTE = 'POST_VOTE'
 export const COMMENT_VOTE = 'COMMENT_VOTE'
 
@@ -34,6 +35,14 @@ export function addComment({ comment }) {
   return {
     type: ADD_COMMENT,
     comment,
+  }
+}
+
+export function editComment({ commentId, body }) {
+  return {
+    type: EDIT_COMMENT,
+    commentId,
+    body,
   }
 }
 

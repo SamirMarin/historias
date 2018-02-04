@@ -4,14 +4,29 @@ import { Link } from 'react-router-dom'
 import Vote from './Vote'
 import AddPost from 'react-icons/lib/md/add'
 import EditPost from 'react-icons/lib/ti/edit'
+import SortCategories from './SortCategories'
+import sortBy from 'sort-by'
 
 class Posts extends Component {
+  state = {
+    sortBy: 'timestamp'
+  }
+
+  setSelectSortBy = (sortBy) => {
+    this.setState({ sortBy })
+  }
+
   render() {
     return (
       <div className="posts-container">
         <h2> Posts </h2>
+        <SortCategories
+          sortCategories = {["timestamp", "voteScore", "title", "author"]}
+          defaultSortCategory={this.state.sortBy}
+          onSelectSortBy={this.setSelectSortBy}
+        />
         <ol className="posts-grid">
-          {this.props.posts.map((post) => (
+          {this.props.posts.sort(sortBy(this.state.sortBy)).map((post) => (
             <li key={post.id}>
               <div className="posts-box">
                 <div className="list-post-title"> 

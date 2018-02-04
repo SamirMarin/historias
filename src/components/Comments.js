@@ -5,6 +5,7 @@ import Vote from './Vote'
 import Modal from 'react-modal'
 import CommentForm from './CommentForm'
 import EditComment from 'react-icons/lib/ti/edit'
+import SortBy from 'sort-by'
 
 class Comments extends Component {
   state = {
@@ -31,7 +32,7 @@ class Comments extends Component {
       <div className="comments-container"> 
         Responses
         <ol className="comment-grid" >
-          {this.props.comments.map((comment) => (
+          {this.props.comments.sort(SortBy('-timestamp')).map((comment) => (
             <li key={comment.id}>
               <div className="comment-container">
                 <div className="comment-author"> {comment.author} </div>

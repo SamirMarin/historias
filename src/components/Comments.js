@@ -30,7 +30,7 @@ class Comments extends Component {
   render() {
     return (
       <div className="comments-container"> 
-        Responses
+        {this.props.comments.length} Responses
         <ol className="comment-grid" >
           {this.props.comments.sort(SortBy('-timestamp')).map((comment) => (
             <li key={comment.id}>

@@ -376,3 +376,10 @@
   padding: 10px 15px;
   text-align: left;
 }
+
+/*loading*/
+.loading {
+  align-self: center;
+  margin: 0 auto;
+}
+

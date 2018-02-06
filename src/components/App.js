@@ -51,7 +51,8 @@ class App extends Component {
         <PostForm
           postId={props.match.params.postId}
           onCreatePost={() => {
-            props.history.push('/')
+            props.history.push("/" + props.match.params.category + "/" 
+              + props.match.params.postId)
           }}
         />
       )}/>

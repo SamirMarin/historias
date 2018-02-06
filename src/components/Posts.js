@@ -12,6 +12,8 @@ import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import * as Api from '../utils/api'
 import { deletePost } from '../actions'
+import { Route } from 'react-router-dom'
+import Categories from './Categories'
 
 class Posts extends Component {
   state = {
@@ -41,64 +43,74 @@ class Posts extends Component {
   render() {
     return (
       <div>
-        {this.props.posts.length === 0
-            ? <Loading type="spin" color = "#222" className="loading" delay={200} />
-            : <div className="posts-container">
-              <h2> Posts </h2>
-              <SortCategories
-                sortCategories = {["timestamp", "voteScore", "title", "author"]}
-                defaultSortCategory={this.state.sortBy}
-                onSelectSortBy={this.setSelectSortBy}
-              />
-              <ol className="posts-grid">
-                {this.props.posts.sort(sortBy(this.state.sortBy)).map((post) => (
-                  !post.deleted &&
-                  <li key={post.id}>
-                    <div className="posts-box">
-                      <div className="list-post-title"> 
-                        <h1>
-                          <Link
-                            to={{ pathname: "/" + post.category + "/" + post.id }}
-                            className="list-post-title-link"
-                          >{post.title}</Link>
-                        </h1>
-                      </div>
-                      <h4> By: {post.author} </h4>
-                      <Vote
-                        voteScoreObject={ {
-                          id: post.id, 
-                          voteScore: post.voteScore,
-                          url: "posts",
-                        } }
-                      />
-                      <div className="edit-post-container">
-                        <Link
-                          to={{ pathname: "/" + post.category + "/edit/" + post.id }}
-                          className="edit-post-icon"
-                        >
-                          <EditPost 
-                            className="edit-post"
-                            size={30}
-                          />
-                        </Link>
-                        <DeletePost
-                          className="delete-post"
-                          size={30}
-                          onClick={() => this.deletePost(post.id)}
-                        />
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-              <Link
-                to="/posts/new"
-                className="posts-add"
-              > 
-                <AddPost size={70}/> 
-              </Link>
-            </div>}
-          </div>
+        {this.props.posts === "Not Found"
+            ? <div> This Category does not exist </div>
+            : <div>
+              <Route exact path="/" component={Categories}/>
+              <Route exact path="/:category" render={(props) => (
+                <Categories
+                  category={props.match.params.category}
+                />
+              )}/>
+              {this.props.posts.length === 0
+                  ? <Loading type="spin" color = "#222" className="loading" delay={200} />
+                  : <div className="posts-container">
+                    <h2> Posts </h2>
+                    <SortCategories
+                      sortCategories = {["timestamp", "voteScore", "title", "author"]}
+                      defaultSortCategory={this.state.sortBy}
+                      onSelectSortBy={this.setSelectSortBy}
+                    />
+                    <ol className="posts-grid">
+                      {this.props.posts.sort(sortBy(this.state.sortBy)).map((post) => (
+                        !post.deleted &&
+                        <li key={post.id}>
+                          <div className="posts-box">
+                            <div className="list-post-title"> 
+                              <h1>
+                                <Link
+                                  to={{ pathname: "/" + post.category + "/" + post.id }}
+                                  className="list-post-title-link"
+                                >{post.title}</Link>
+                              </h1>
+                            </div>
+                            <h4> By: {post.author} </h4>
+                            <Vote
+                              voteScoreObject={ {
+                                id: post.id, 
+                                voteScore: post.voteScore,
+                                url: "posts",
+                              } }
+                            />
+                            <div className="edit-post-container">
+                              <Link
+                                to={{ pathname: "/" + post.category + "/edit/" + post.id }}
+                                className="edit-post-icon"
+                              >
+                                <EditPost 
+                                  className="edit-post"
+                                  size={30}
+                                />
+                              </Link>
+                              <DeletePost
+                                className="delete-post"
+                                size={30}
+                                onClick={() => this.deletePost(post.id)}
+                              />
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                    <Link
+                      to="/posts/new"
+                      className="posts-add"
+                    > 
+                      <AddPost size={70}/> 
+                    </Link>
+                  </div>}
+                </div>}
+              </div>
     )
   }
 
@@ -108,6 +120,10 @@ function mapStateToProps({ posts, categories }, props) {
   if (props.category && (props.category in categories)) {
     return {
       posts: categories[props.category].map((postId) => (posts[postId]))  
+    }
+  } else if (props.category){
+    return {
+      posts: "Not Found"
     }
   } else {
     return {

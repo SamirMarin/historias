@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Posts from './Posts'
-import Categories from './Categories'
 import Post from './Post'
 import PostForm from './PostForm'
 import { Route } from 'react-router-dom'
@@ -20,12 +19,6 @@ class App extends Component {
             >Historias</Link>
           </h1>
         </header>
-        <Route exact path="/" component={Categories}/>
-        <Route exact path="/:category" render={(props) => (
-          <Categories
-            category={props.match.params.category}
-          />
-        )}/>
         <Route exact path="/" component={Posts}/>
         <Route exact path="/:category" render={(props) => (
           <Posts

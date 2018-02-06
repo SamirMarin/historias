@@ -21,18 +21,18 @@ class App extends Component {
           </h1>
         </header>
         <Route exact path="/" component={Categories}/>
-        <Route path="/categories/:category" render={(props) => (
+        <Route exact path="/:category" render={(props) => (
           <Categories
             category={props.match.params.category}
           />
         )}/>
         <Route exact path="/" component={Posts}/>
-        <Route path="/categories/:category" render={(props) => (
+        <Route exact path="/:category" render={(props) => (
           <Posts
             category={props.match.params.category}
           />
         )}/>
-        <Route path="/posts/:postId" render={(props) => (
+        <Route path="/:category/:postId" render={(props) => (
           <Post
             postId={props.match.params.postId}
           />
@@ -44,7 +44,7 @@ class App extends Component {
           }}
         />
       )}/>
-      <Route path="/posts/edit/:postId" render={(props) => (
+      <Route path="/:category/edit/:postId" render={(props) => (
         <PostForm
           postId={props.match.params.postId}
           onCreatePost={() => {

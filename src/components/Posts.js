@@ -58,7 +58,7 @@ class Posts extends Component {
                       <div className="list-post-title"> 
                         <h1>
                           <Link
-                            to={{ pathname: "/posts/" + post.id }}
+                            to={{ pathname: "/" + post.category + "/" + post.id }}
                             className="list-post-title-link"
                           >{post.title}</Link>
                         </h1>
@@ -73,7 +73,7 @@ class Posts extends Component {
                       />
                       <div className="edit-post-container">
                         <Link
-                          to={{ pathname: "/posts/edit/" + post.id }}
+                          to={{ pathname: "/" + post.category + "/edit/" + post.id }}
                           className="edit-post-icon"
                         >
                           <EditPost 
@@ -92,7 +92,7 @@ class Posts extends Component {
                 ))}
               </ol>
               <Link
-                to="posts/new"
+                to="/posts/new"
                 className="posts-add"
               > 
                 <AddPost size={70}/> 

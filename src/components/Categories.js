@@ -69,7 +69,7 @@ class Categories extends Component {
                   {category} </div> 
                 :
                 <Link to={{
-                  pathname: "/categories/" + category 
+                  pathname: "/" + category 
                 }}
                 className="categories-button">
                 {category} </Link> }

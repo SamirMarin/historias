@@ -35,6 +35,9 @@ class App extends Component {
         <Route path="/:category/:postId" render={(props) => (
           <Post
             postId={props.match.params.postId}
+            onDeletePost={() => {
+              props.history.push('/')
+            }}
           />
         )}/>
       <Route path="/posts/new" render={({ history }) => (

@@ -311,6 +311,16 @@
 .edit-post-icon {
   color: white;
 }
+
+.edit-post-container-post {
+  height: 30px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.edit-post-icon-post {
+  color: #222;
+}
 /*edit comment*/
 
 .edit-comment {

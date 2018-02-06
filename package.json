@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.2.0",
+    "react-confirm-alert": "^1.0.8",
     "react-dom": "^16.2.0",
     "react-icons": "^2.2.7",
     "react-loading": "^1.0.3",

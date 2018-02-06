@@ -3,6 +3,7 @@ import {
   ADD_CATEGORY,
   ADD_POST,
   EDIT_POST,
+  DELETE_POST,
   ADD_COMMENT,
   EDIT_COMMENT,
   POST_VOTE,
@@ -65,6 +66,15 @@ function posts (state={}, action) {
           ...state[postId],
           'title': title,
           'body': body,
+        }
+      }
+    case DELETE_POST:
+      const { deletePostId, deleted } = action 
+      return {
+        ...state,
+        [deletePostId]: {
+          ...state[deletePostId],
+          'deleted': deleted,
         }
       }
     default:

@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom'
 import Vote from './Vote'
 import AddPost from 'react-icons/lib/md/add'
 import EditPost from 'react-icons/lib/ti/edit'
+import DeletePost from 'react-icons/lib/md/delete'
 import SortCategories from './SortCategories'
 import sortBy from 'sort-by'
 import Loading from 'react-loading'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
+import * as Api from '../utils/api'
+import { deletePost } from '../actions'
 
 class Posts extends Component {
   state = {
@@ -15,6 +20,22 @@ class Posts extends Component {
 
   setSelectSortBy = (sortBy) => {
     this.setState({ sortBy })
+  }
+
+  onConfirmDelete(postId) {
+    Api.deletePost(postId)
+      .then(post => this.props.deletePost({ deletePostId: post.id, deleted: post.deleted }))
+      .catch(err => console.log(err))
+  }
+
+  deletePost(postId) {
+      confirmAlert({
+        title: 'Confirm to delete',
+        message: 'Are you sure you want to delete this post.',
+        cancelLabel: 'Cancel',
+        confirmLabel: 'Confirm',
+        onConfirm: () => this.onConfirmDelete(postId),
+      })
   }
 
   render() {
@@ -31,6 +52,7 @@ class Posts extends Component {
               />
               <ol className="posts-grid">
                 {this.props.posts.sort(sortBy(this.state.sortBy)).map((post) => (
+                  !post.deleted &&
                   <li key={post.id}>
                     <div className="posts-box">
                       <div className="list-post-title"> 
@@ -59,6 +81,11 @@ class Posts extends Component {
                             size={30}
                           />
                         </Link>
+                        <DeletePost
+                          className="delete-post"
+                          size={30}
+                          onClick={() => this.deletePost(post.id)}
+                        />
                       </div>
                     </div>
                   </li>
@@ -92,4 +119,10 @@ function mapStateToProps({ posts, categories }, props) {
   }
 }
 
-export default connect(mapStateToProps)(Posts);
+function mapDispatchToProps( dispatch ) {
+  return {
+    deletePost: (data) => dispatch(deletePost(data)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);

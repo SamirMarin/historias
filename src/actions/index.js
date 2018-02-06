@@ -2,11 +2,13 @@ import * as Api from '../utils/api'
 
 export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const ADD_POST = 'ADD_POST'
+export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const POST_VOTE = 'POST_VOTE'
 export const COMMENT_VOTE = 'COMMENT_VOTE'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export function addCategory ({ category }) {
   return {
@@ -31,6 +33,14 @@ export function editPost ({ postId, title, body }) {
   }
 }
 
+export function deletePost ({ deletePostId, deleted }) {
+  return {
+    type: DELETE_POST,
+    deletePostId,
+    deleted,
+  }
+}
+
 export function addComment({ comment }) {
   return {
     type: ADD_COMMENT,
@@ -43,6 +53,14 @@ export function editComment({ commentId, body }) {
     type: EDIT_COMMENT,
     commentId,
     body,
+  }
+}
+
+export function deleteComment({ deleteCommentId, deleted }) {
+  return {
+    type: DELETE_COMMENT,
+    deleteCommentId,
+    deleted,
   }
 }
 

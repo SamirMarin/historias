@@ -3,8 +3,10 @@ import {
   ADD_CATEGORY,
   ADD_POST,
   EDIT_POST,
+  DELETE_POST,
   ADD_COMMENT,
   EDIT_COMMENT,
+  DELETE_COMMENT,
   POST_VOTE,
   COMMENT_VOTE,
 } from '../actions'
@@ -67,6 +69,15 @@ function posts (state={}, action) {
           'body': body,
         }
       }
+    case DELETE_POST:
+      const { deletePostId, deleted } = action 
+      return {
+        ...state,
+        [deletePostId]: {
+          ...state[deletePostId],
+          'deleted': deleted,
+        }
+      }
     default:
       return state
   }
@@ -96,6 +107,15 @@ function comments (state={}, action) {
         [commentId]: {
           ...state[commentId],
           'body': body,
+        }
+      }
+    case DELETE_COMMENT:
+      const {deleteCommentId, deleted } = action
+      return {
+        ...state,
+        [deleteCommentId]: {
+          ...state[deleteCommentId],
+          'deleted': deleted,
         }
       }
     default:

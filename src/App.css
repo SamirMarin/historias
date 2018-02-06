@@ -312,6 +312,7 @@
   color: white;
 }
 /*edit comment*/
+
 .edit-comment {
   float: right;
   cursor: pointer;
@@ -341,6 +342,13 @@
 }
 
 .edit-comment-modal {
+}
+
+/* delete post */
+
+.delete-post {
+  float: left;
+  cursor: pointer;
 }
 
 /*sort categories*/

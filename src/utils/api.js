@@ -106,3 +106,29 @@ export const editComment = (comment, id) =>
     }
   })
 
+export const deletePost = (id) =>
+  fetch(`${api}/posts/${id}`, {
+    method: 'DELETE',
+    headers,
+  }).then(res => {
+    if(res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(new Error(res.satusText))
+    }
+  })
+
+export const deleteComment = (id) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'DELETE',
+    headers,
+  }).then(res => {
+    if(res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(new Error(res.satusText))
+    }
+  })
+
+  
+

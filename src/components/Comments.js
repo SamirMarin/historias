@@ -51,7 +51,7 @@ class Comments extends Component {
   render() {
     return (
       <div className="comments-container"> 
-        {this.props.comments.length} Responses
+        {this.props.comments.filter((comment) => !comment.deleted).length} Responses
         <ol className="comment-grid" >
           {this.props.comments.sort(SortBy('-timestamp')).map((comment) => (
             !comment.deleted &&

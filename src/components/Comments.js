@@ -6,6 +6,11 @@ import Modal from 'react-modal'
 import CommentForm from './CommentForm'
 import EditComment from 'react-icons/lib/ti/edit'
 import SortBy from 'sort-by'
+import DeleteComment from 'react-icons/lib/md/delete'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
+import * as Api from '../utils/api'
+import { deleteComment } from '../actions'
 
 class Comments extends Component {
   state = {
@@ -27,12 +32,29 @@ class Comments extends Component {
     }))
   }
 
+  onConfirmDelete(commentId) {
+    Api.deleteComment(commentId)
+      .then(comment => this.props.deleteComment({ deleteCommentId: comment.id, deleted: comment.deleted }))
+      .catch(err => console.log(err))
+  }
+
+  deleteComment(commentId) {
+      confirmAlert({
+        title: 'Confirm to delete',
+        message: 'Are you sure you want to delete this comment.',
+        cancelLabel: 'Cancel',
+        confirmLabel: 'Confirm',
+        onConfirm: () => this.onConfirmDelete(commentId),
+      })
+  }
+
   render() {
     return (
       <div className="comments-container"> 
         {this.props.comments.length} Responses
         <ol className="comment-grid" >
           {this.props.comments.sort(SortBy('-timestamp')).map((comment) => (
+            !comment.deleted &&
             <li key={comment.id}>
               <div className="comment-container">
                 <div className="comment-author"> {comment.author} </div>
@@ -52,6 +74,11 @@ class Comments extends Component {
                     className="edit-comment"
                     size={30}
                     onClick={() => this.openEditComment({ comment }) }
+                  />
+                  <DeleteComment
+                    className="delete-post"
+                    size={30}
+                    onClick={() => this.deleteComment(comment.id)}
                   />
                 </div>
               </div>
@@ -87,4 +114,10 @@ function mapStateToProps({ posts, comments }, props) {
   }
 }
 
-export default connect(mapStateToProps)(Comments)
+function mapDispatchToProps( dispatch ) {
+  return {
+    deleteComment: (data) => dispatch(deleteComment(data)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comments)

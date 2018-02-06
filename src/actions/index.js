@@ -8,6 +8,7 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const POST_VOTE = 'POST_VOTE'
 export const COMMENT_VOTE = 'COMMENT_VOTE'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export function addCategory ({ category }) {
   return {
@@ -52,6 +53,14 @@ export function editComment({ commentId, body }) {
     type: EDIT_COMMENT,
     commentId,
     body,
+  }
+}
+
+export function deleteComment({ deleteCommentId, deleted }) {
+  return {
+    type: DELETE_COMMENT,
+    deleteCommentId,
+    deleted,
   }
 }
 

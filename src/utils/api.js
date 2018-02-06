@@ -118,5 +118,17 @@ export const deletePost = (id) =>
     }
   })
 
+export const deleteComment = (id) =>
+  fetch(`${api}/comments/${id}`, {
+    method: 'DELETE',
+    headers,
+  }).then(res => {
+    if(res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(new Error(res.satusText))
+    }
+  })
+
   
 

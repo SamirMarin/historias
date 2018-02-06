@@ -6,6 +6,7 @@ import {
   DELETE_POST,
   ADD_COMMENT,
   EDIT_COMMENT,
+  DELETE_COMMENT,
   POST_VOTE,
   COMMENT_VOTE,
 } from '../actions'
@@ -106,6 +107,15 @@ function comments (state={}, action) {
         [commentId]: {
           ...state[commentId],
           'body': body,
+        }
+      }
+    case DELETE_COMMENT:
+      const {deleteCommentId, deleted } = action
+      return {
+        ...state,
+        [deleteCommentId]: {
+          ...state[deleteCommentId],
+          'deleted': deleted,
         }
       }
     default:

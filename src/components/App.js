@@ -3,8 +3,8 @@ import '../App.css';
 import Posts from './Posts'
 import Post from './Post'
 import PostForm from './PostForm'
-import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
+import NoMatch from './NoMatch'
 
 class App extends Component {
 
@@ -19,38 +19,41 @@ class App extends Component {
             >Historias</Link>
           </h1>
         </header>
-        <Route exact path="/" component={Posts}/>
-        <Route exact path="/:category" render={(props) => (
-          <Posts
-            category={props.match.params.category}
-          />
-        )}/>
-        <Route path="/:category/:postId" render={(props) => (
-          <Post
-            postId={props.match.params.postId}
-            onDeletePost={() => {
-              props.history.push('/')
-            }}
-          />
-        )}/>
-      <Route path="/posts/new" render={({ history }) => (
-        <PostForm
-          onCreatePost={() => {
-            history.push('/')
-          }}
-        />
-      )}/>
-      <Route path="/:category/edit/:postId" render={(props) => (
-        <PostForm
-          postId={props.match.params.postId}
-          onCreatePost={() => {
-            props.history.push("/" + props.match.params.category + "/" 
-              + props.match.params.postId)
-          }}
-        />
-      )}/>
-  </div>
-    );
+        <Switch>
+          <Route exact path="/" component={Posts}/>
+          <Route exact path="/:category" render={(props) => (
+            <Posts
+              category={props.match.params.category}
+            />
+          )}/>
+          <Route path="/posts/new" render={({ history }) => (
+            <PostForm
+              onCreatePost={() => {
+                history.push('/')
+              }}
+            />
+          )}/>
+          <Route exact path="/:category/:postId" render={(props) => (
+            <Post
+              postId={props.match.params.postId}
+              onDeletePost={() => {
+                props.history.push('/')
+              }}
+            />
+          )}/>
+          <Route exact path="/:category/edit/:postId" render={(props) => (
+            <PostForm
+              postId={props.match.params.postId}
+              onCreatePost={() => {
+                props.history.push("/" + props.match.params.category + "/" 
+                  + props.match.params.postId)
+              }}
+            />
+          )}/>
+          <Route component={NoMatch}/>
+      </Switch>
+    </div>
+    )
   }
 }
 

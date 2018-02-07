@@ -4,6 +4,7 @@ import Categories from './Categories'
 import uuidv1 from 'uuid/v1'
 import * as Api from '../utils/api'
 import { addPost, editPost } from '../actions'
+import NoMatch from './NoMatch'
 
 
 class PostForm extends Component {
@@ -106,52 +107,56 @@ class PostForm extends Component {
 
   render() {
     return (
-      <div className="comment-form-container">
-        <div className="comment-form-title">
-          Let's hear it! Post and publish it!
-        </div>
-        <form onSubmit ={(e) => this.handleSubmit(e)} >
-          <div className="comment-form-area">
-            <Categories
-              newPost={true}
-              onSelectCategory={this.selectCategory}
-              categorySelected={this.state.category}
-            />
-            <div className="form-padding">
-              <textarea 
-                className="post-text-box-title"
-                placeholder="Whats the title"
-                value={this.state.title}
-                onChange={(event) => this.handleChangeTitle(event.target.value)}
-              />
-            </div>
-            <br/>
-            <div className="form-padding">
-              <textarea 
-                className="post-text-box-area"
-                placeholder="let's hear what you have to say about this post!"
-                value={this.state.body}
-                onChange={(event) => this.handleChangeBody(event.target.value)}
-              />
-            </div>
-            <br/>
-            <div className="">
-              <input 
-                className="author-area"
-                placeholder="who are you?"
-                type="text"
-                value={this.state.author}
-                onChange={(event) => this.handleChangeAuthor(event.target.value)}
-              />
-            </div>
-            <br/>
-            <input 
-              type="submit"
-              className="author-area"
-            />
+      <div>
+        { this.props.post === "Not Valid PostId"
+            ? <NoMatch/>
+            : <div className="comment-form-container">
+          <div className="comment-form-title">
+            Let's hear it! Post and publish it!
           </div>
-        </form>
-      </div>
+          <form onSubmit ={(e) => this.handleSubmit(e)} >
+            <div className="comment-form-area">
+              <Categories
+                newPost={true}
+                onSelectCategory={this.selectCategory}
+                categorySelected={this.state.category}
+              />
+              <div className="form-padding">
+                <textarea 
+                  className="post-text-box-title"
+                  placeholder="Whats the title"
+                  value={this.state.title}
+                  onChange={(event) => this.handleChangeTitle(event.target.value)}
+                />
+              </div>
+              <br/>
+              <div className="form-padding">
+                <textarea 
+                  className="post-text-box-area"
+                  placeholder="let's hear what you have to say about this post!"
+                  value={this.state.body}
+                  onChange={(event) => this.handleChangeBody(event.target.value)}
+                />
+              </div>
+              <br/>
+              <div className="">
+                <input 
+                  className="author-area"
+                  placeholder="who are you?"
+                  type="text"
+                  value={this.state.author}
+                  onChange={(event) => this.handleChangeAuthor(event.target.value)}
+                />
+              </div>
+              <br/>
+              <input 
+                type="submit"
+                className="author-area"
+              />
+            </div>
+          </form>
+        </div>}
+    </div>
     )
   }
 }
@@ -160,6 +165,10 @@ function mapStateToProps({ posts }, props) {
   if (props.postId && (props.postId in posts)) {
     return {
       post: posts[props.postId]
+    }
+  } else if (props.postId) {
+    return {
+      post: "Not Valid PostId"
     }
   } else {
     return {}

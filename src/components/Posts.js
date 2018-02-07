@@ -14,6 +14,7 @@ import * as Api from '../utils/api'
 import { deletePost } from '../actions'
 import { Route } from 'react-router-dom'
 import Categories from './Categories'
+import NoMatch from './NoMatch'
 
 class Posts extends Component {
   state = {
@@ -44,7 +45,7 @@ class Posts extends Component {
     return (
       <div>
         {this.props.posts === "Not Found"
-            ? <div> This Category does not exist </div>
+            ? <NoMatch/>
             : <div>
               <Route exact path="/" component={Categories}/>
               <Route exact path="/:category" render={(props) => (

@@ -11,6 +11,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import * as Api from '../utils/api'
 import { deletePost } from '../actions'
+import NoMatch from './NoMatch'
 
 class Post extends Component {
 
@@ -34,49 +35,53 @@ class Post extends Component {
 
   render() {
     return (
-      <div className="post-container">
-        {this.props.post && (
-          <div>
-            <div className="post-title"> {this.props.post.title} </div>
-            <div className="post-author"> by: 
-              <i> {this.props.post.author} </i> 
-            </div>
-            <div className="post-body"> {this.props.post.body} </div>
-            <div className="post-date"> written on: {getDate(this.props.post.timestamp)} </div>
-            <Vote
-              voteScoreObject={ {
-                id: this.props.post.id, 
-                voteScore: this.props.post.voteScore,
-                url: "posts",
-              } }
-            />
-            <div className="edit-post-container-post">
-              <Link
-                to={{ pathname: "/" + this.props.post.category + "/edit/" + this.props.post.id }}
-                className="edit-post-icon-post"
-              >
-                <EditPost 
-                  className="edit-post"
-                  size={30}
-                />
-              </Link>
-              <div>
-                <DeletePost
-                  className="delete-post"
-                  size={30}
-                  onClick={() => this.deletePost(this.props.post.id)}
-                />
-              </div>
-            </div>
-            <CommentForm
-              postId = {this.props.post.id}
-            />
-            <Comments
-              comments={this.props.post.comments}
-            />
+      <div>
+        {this.props.post === "Not Valid Post"
+            ? <NoMatch/>
+            : <div className="post-container">
+              {this.props.post && (
+                <div>
+                  <div className="post-title"> {this.props.post.title} </div>
+                  <div className="post-author"> by: 
+                    <i> {this.props.post.author} </i> 
+                  </div>
+                  <div className="post-body"> {this.props.post.body} </div>
+                  <div className="post-date"> written on: {getDate(this.props.post.timestamp)} </div>
+                  <Vote
+                    voteScoreObject={ {
+                      id: this.props.post.id, 
+                      voteScore: this.props.post.voteScore,
+                      url: "posts",
+                    } }
+                  />
+                  <div className="edit-post-container-post">
+                    <Link
+                      to={{ pathname: "/" + this.props.post.category + "/edit/" + this.props.post.id }}
+                      className="edit-post-icon-post"
+                    >
+                      <EditPost 
+                        className="edit-post"
+                        size={30}
+                      />
+                    </Link>
+                    <div>
+                      <DeletePost
+                        className="delete-post"
+                        size={30}
+                        onClick={() => this.deletePost(this.props.post.id)}
+                      />
+                    </div>
+                  </div>
+                  <CommentForm
+                    postId = {this.props.post.id}
+                  />
+                  <Comments
+                    comments={this.props.post.comments}
+                  />
+                </div>
+              )}
+            </div>}
           </div>
-        )}
-      </div>
     )
   }
 }
@@ -85,6 +90,10 @@ function mapStateToProps({ posts }, props) {
   if (props.postId && (props.postId in posts)) {
     return {
       post: posts[props.postId]
+    }
+  } else if (props.postId) {
+    return {
+      post: "Not Valid Post"
     }
   } else {
     return {}

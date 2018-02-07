@@ -76,6 +76,7 @@ class Posts extends Component {
                               </h1>
                             </div>
                             <h4> By: {post.author} </h4>
+                            <p> {post.comments.length} responses </p>
                             <Vote
                               voteScoreObject={ {
                                 id: post.id, 
@@ -117,10 +118,14 @@ class Posts extends Component {
 
 }
 
-function mapStateToProps({ posts, categories }, props) {
+function mapStateToProps({ posts, categories, comments }, props) {
   if (props.category && (props.category in categories)) {
     return {
-      posts: categories[props.category].map((postId) => (posts[postId]))  
+      posts: categories[props.category].map((postId) => ({
+        ...posts[postId],
+        comments: posts[postId].comments.map((comment) => comments[comment]).filter((comment) => !comment.deleted)
+      }
+      ))  
     }
   } else if (props.category){
     return {
@@ -129,7 +134,11 @@ function mapStateToProps({ posts, categories }, props) {
   } else {
     return {
       posts: Object.keys(categories).reduce((posts_array, category) => {
-        posts_array = posts_array.concat(categories[category].map((postId) => (posts[postId])))
+        posts_array = posts_array.concat(categories[category].map((postId) => ({
+          ...posts[postId],
+          comments: posts[postId].comments.map((comment) => comments[comment]).filter((comment) => !comment.deleted)
+        }
+        )))
         return posts_array
       }, [])
     }
